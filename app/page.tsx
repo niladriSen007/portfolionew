@@ -1,113 +1,242 @@
-import Image from 'next/image'
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { GiSkills, GiSoapExperiment, GiProgression } from "react-icons/gi";
+import { IoIosContact } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { NavLinks1, NavLinks2 } from "./contants";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [menuAnim, setMenuAnim] = useState(false);
+  const [menuTextAnim, setMenuTextAnim] = useState(false);
+  const [isMount,setIsMount] = useState(false)
+
+  const router = useRouter();
+
+
+    // useEffect(()=>{
+    //     const transitionTimeout = setTimeout(()=>{
+    //         setIsMount(true)
+    //     },100)
+
+    //     return ()=>clearTimeout(transitionTimeout)
+    // },[])
+
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="w-screen h-screen relative">
+      
+      <motion.div
+        initial={{ x: 400 }}
+        animate={{ x: 0 }}
+        exit={{ x: 400 }}
+        transition={{
+          transition: {
+            type: "spring",
+            damping: 25,
+            stiffness: 300,
+            duration: 50,
+            delay: 1,
+          },
+        }}
+        onMouseOver={() => {
+          setMenuAnim(true);
+        }}
+        onMouseLeave={() => {
+          setMenuAnim(false);
+        }}
+        className="w-12 rounded-full h-40 md:h-48  absolute border border-white right-6 md:right-20 bottom-8 md:bottom-20 flex flex-col gap-4 items-center justify-center text-white z-50 overflow-x-hidden hover:p-2 hover:w-40 md:hover:w-48  md:hover:h-48  hover:rounded-full transition-all duration-500 cursor-pointer"
+      >
+        <div className={`flex  gap-4  ${menuAnim ? "flex-row" : "flex-col"}`}>
+          {NavLinks1?.map((n) => (
+            <>
+              <p
+                // href={n?.name}
+                onClick={() => {
+                  router.push(n?.name);
+                }}
+                key={n?.name}
+                className="relative"
+                // onMouseOver={() => {
+                //   setMenuTextAnim(true);
+                // }}
+                // onMouseLeave={() => {
+                //   setMenuTextAnim(false);
+                // }}
+              >
+                <n.icon size={menuAnim ? 32 : 24} />
+              </p>
+              {/* { menuTextAnim &&
+                <div className="absolute top-3">
+                  <span>{n?.text}</span>
+                </div>
+              } */}
+            </>
+          ))}
+          {/* <p>
+            <GiSkills size={menuAnim ? 32 : 24} />
+          </p>
+          <p>
+            <GiProgression size={menuAnim ? 32 : 24} />
+          </p> */}
         </div>
+        <div className={`flex  gap-4  ${menuAnim ? "flex-row" : "flex-col"}`}>
+          {/* <p>
+            <GiSoapExperiment size={menuAnim ? 32 : 24} />
+          </p>
+          <p>
+            <IoIosContact size={menuAnim ? 32 : 24} />
+          </p> */}
+          {NavLinks2?.map((n) => (
+            <Link href={n?.name} key={n?.name}>
+              <n.icon size={menuAnim ? 32 : 24} />
+            </Link>
+          ))}
+        </div>
+      </motion.div>
+      <div
+        className="flex items-center w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: "url(/main-bg.webp)" }}
+      >
+        <motion.div
+          initial={{ x: -800 }}
+          animate={{ x: 0 }}
+          exit={{ x: -800 }}
+          transition={{
+            transition: {
+              type: "spring",
+              damping: 25,
+              stiffness: 300,
+              duration: 50,
+              delay: 1,
+            },
+          }}
+          className="pl-8 md:pl-40 pb-56 md:pb-20 flex flex-col gap-5 z-[10] max-w-[780px]"
+        >
+          <h1 className="text-[44px] md:text[50px] text-white font-semibold">
+            Make anything possible with
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-red-500 text-4xl md:text-5xl font-black ">
+              {" "}
+              Niladri.
+            </span>
+          </h1>
+          <p className="text-gray-200 hidden md:block">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <div className="flex-col md:flex-row hidden md:flex gap-5 py-4">
+            <motion.button
+              initial={{ opacity: 0.6 }}
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.1 },
+              }}
+              whileTap={{ scale: 0.7 }}
+              whileInView={{ opacity: 1 }}
+              className="w-40 rounded-md border border-white hover:border-transparent transition-all duration-500 group relative hover:bg-gradient-to-r from-purple-500 to-red-500 hover:bg-blue-400 px-4 py-1 text-lg text-white h-10"
+            >
+              <Link href="/my-skills">Learn more</Link>
+            </motion.button>
+            <motion.button
+              initial={{ opacity: 0.6 }}
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.1 },
+              }}
+              whileTap={{ scale: 0.7 }}
+              whileInView={{ opacity: 1 }}
+              className="w-40 rounded-md border border-white hover:border-transparent transition-all duration-500 group relative hover:bg-gradient-to-r from-purple-500 to-red-500 hover:bg-blue-400 px-4 py-1 text-lg text-white h-10"
+            >
+              <Link href="/my-projects">
+                <div className="absolute rounded-[20px] z-[1] bg-white inset-0 opacity-0 group-hver:opacity-20" />
+                My projects
+              </Link>
+            </motion.button>
+            <motion.button
+              initial={{ opacity: 0.6 }}
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.1 },
+              }}
+              whileTap={{ scale: 0.7 }}
+              whileInView={{ opacity: 1 }}
+              className="w-40 rounded-md border border-white hover:border-transparent transition-all duration-500 group relative hover:bg-gradient-to-r from-purple-500 to-red-500 hover:bg-blue-400 px-4 py-1 text-lg text-white h-10"
+            >
+              <Link href="/contact-me">
+                <div className="absolute rounded-[20px] z-[1] bg-white inset-0 opacity-0 group-hver:opacity-20" />
+                Contact me
+              </Link>
+            </motion.button>
+          </div>
+        </motion.div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
+      <motion.div
+      initial={{ x: -200 }}
+      animate={{ x: 0 }}
+      exit={{ x: -200 }}
+      transition={{
+        transition: {
+          type: "spring",
+          damping: 25,
+          stiffness: 300,
+          duration: 50,
+          delay: 60,
+        },
+      }}
+      className="absolute flex bottom-10 z-[20] left-8 flex-col md:hidden gap-5">
+        <Link
+          href="/my-skills"
+          className="rounded-md border border-white hover:border-transparent transition-all duration-300 group relative hover:bg-gradient-to-r from-purple-500 to-red-500 hover:bg-blue-400 px-2 py-1 text-base text-white h-9 "
+        >
+          Learn more
+        </Link>
+
+        <Link
+          href="/my-projects"
+          className="rounded-md border border-white hover:border-transparent transition-all duration-300 group relative hover:bg-gradient-to-r from-purple-500 to-red-500 hover:bg-blue-400 px-2 py-1 text-base text-white h-9 "
+        >
+          My projects
+        </Link>
+        <Link
+          href="/contact-me"
+          className="rounded-md border border-white hover:border-transparent transition-all duration-300 group relative hover:bg-gradient-to-r from-purple-500 to-red-500 hover:bg-blue-400 px-2 py-1 text-base text-white h-9 "
+        >
+          Contact me
+        </Link>
+      </motion.div>
+
+      <div className="absolute bottom-0 right-0 z-[10]">
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src="/horse.png"
+          alt="horse"
+          height={300}
+          width={300}
+          className="absolute right-55 top-40"
+        />
+
+        <Image src="/cliff.webp" alt="cliff" width={480} height={480} />
+      </div>
+
+      <div className="absolute bottom-0 z-[5] w-full h-auto">
+        <Image
+          src="/trees.webp"
+          alt="trees"
+          width={2000}
+          height={2000}
+          className="w-full h-full"
         />
       </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <Image
+        src="/stars.png"
+        alt="stars"
+        height={300}
+        width={300}
+        className="absolute top-0 left-0 z-[10]"
+      />
     </main>
-  )
+  );
 }
