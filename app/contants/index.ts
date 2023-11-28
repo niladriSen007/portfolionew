@@ -154,9 +154,9 @@ export const NavLinks2 = [
     text:"My Projects"
   },
   {
-    name: "/contact-me",
+    name: "/experience",
     icon: IoIosContact,
-    link: "/contact-me",
-    text:"Contact me"
+    link: "/experience",
+    text:"experience"
   },
 ];

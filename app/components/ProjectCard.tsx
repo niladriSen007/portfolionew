@@ -30,7 +30,7 @@ const ProjectCard = ({ image, title, text,linkedinLink,githubLink}: Props) => {
     onMouseLeave={()=>{
       setIsFlipped(!isFlipped)
       setIsAnimating(false)}}
-    className='w-80 md:w-[560px] h-48 md:h-[280px] rounded-md cursor-pointer object-contain mb-16 md:mb-0'>
+    className='w-72 md:w-[560px] h-48 md:h-[280px] rounded-md cursor-pointer object-contain mb-16 md:mb-0'>
         <motion.div
         className='flip-card-inner w-full h-full'
         initial={false}
