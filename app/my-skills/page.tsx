@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import {motion} from "framer-motion"
 
 import Image from "next/image";
 import { Autoplay } from "swiper/modules";
@@ -45,7 +44,7 @@ const MySkills = () => {
       className="h-screen w-screen flex items-center justify-center bg-cover bg-center"
     >
       {isMount && <Transition />}
-      <div className="flex flex-col gap-20 max-w-[80%] text-center items-center">
+      <div className="flex flex-col gap-20  text-center items-center mt-96 md:mt-36 mb-10">
         <div className="flex flex-col items-center gap-4">
           <h1 className="font-semibold text-white text-[42px] md:text-[50px]">
             Skills{" "}
@@ -81,7 +80,7 @@ const MySkills = () => {
             </SwiperSlide>
           ))}
         </Swiper> */}
-        <Swiper
+        {/* <Swiper
           slidesPerView={imgCount}
           loop={true}
           autoplay={{
@@ -103,8 +102,8 @@ const MySkills = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>
-        <Swiper
+        </Swiper> */}
+        {/* <Swiper
           slidesPerView={imgCount}
           loop={true}
           autoplay={{
@@ -126,7 +125,32 @@ const MySkills = () => {
               />
             </SwiperSlide>
           ))}
-        </Swiper>
+        </Swiper> */}
+        <motion.div 
+        initial={{ scale:0 }}
+        animate={{ scale:1 }}
+        exit={{ scale:0 }}
+        transition={{
+          transition: {
+            type: "spring",
+            damping: 25,
+            stiffness: 300,
+            duration: 80,
+            delay: 4000,
+          },
+        }}
+        className="grid grid-cols-2 gap-12 md:grid-cols-5 md:gap-24">
+        {SkillData.map((skill, index) => (
+            <div key={index}>
+              <Image
+                src={skill.Image}
+                alt={skill.name}
+                width={skill.width}
+                height={skill.height}
+              />
+            </div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );
