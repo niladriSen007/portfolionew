@@ -76,6 +76,12 @@ export const SkillData = [
     width: 50,
     height: 40,
   },
+  // {
+  //   name: "Kotlin",
+  //   Image: "/kotlin.png",
+  //   width: 150,
+  //   height: 80,
+  // },
 ];
 
 export const Socials = [
